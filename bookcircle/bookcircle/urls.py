@@ -25,5 +25,6 @@ urlpatterns = [
     path('account/', views.account, name="account"),
     path('library/', views.library, name="library"),
     path('challenge/', views.challenge, name="challenge"),
+    path('', include('userapp.urls')),
 
 ]
