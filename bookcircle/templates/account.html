@@ -27,15 +27,12 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#"> Pseudo : {{user}}</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
-            </li>
             {% else %}
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'login' %}">Connexion</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Inscription</a>
+                <a class="nav-link" href="{% url 'register' %}">Inscription</a>
             </li>
             {% endif %}
                 </ul>
