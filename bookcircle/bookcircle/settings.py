@@ -128,4 +128,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home' #après le login, on redirige vers la page d'accueil
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = 'fr-fr' # langue FR
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #affichage mot de passe réinitialiser sur la console pour test
+
