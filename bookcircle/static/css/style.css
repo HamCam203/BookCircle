@@ -1,0 +1,26 @@
+body {
+    height: 100vh; /* S'assure que le body prend toute la hauteur de la vue */
+    margin: 0; /* Éliminer les marges par défaut */
+    background: radial-gradient(ellipse at center, #48d411 0%, #07560a 100%);
+    background-size: cover; /* S'assure que le dégradé couvre uniformément toute la page */
+    background-position: center; /* Centrer le dégradé */
+    background-repeat: no-repeat; /* Empêche la répétition du dégradé */
+}
+
+
+.navbar-custom, .footbar {
+    background: radial-gradient(ellipse farthest-corner at center top, #1e4e25 0%, #032d0e 100%);
+}
+
+.nav-link:hover {
+    font-size: larger;
+}
+.nav-link, .navbar-brand, .foot-link {
+    color: white !important; /* Forcer la couleur blanche */
+}
+
+.footbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
