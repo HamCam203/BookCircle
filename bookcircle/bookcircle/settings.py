@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -130,3 +131,6 @@ LOGIN_REDIRECT_URL = 'home' #après le login, on redirige vers la page d'accueil
 LANGUAGE_CODE = 'fr-fr' # langue FR
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #affichage mot de passe réinitialiser sur la console pour test
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

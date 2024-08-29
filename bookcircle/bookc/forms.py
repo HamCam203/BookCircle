@@ -9,7 +9,11 @@ class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(label='Adresse e-mail', required=True)
     bio = forms.CharField(widget=forms.Textarea, required=False, label='Biographie')
     profile_picture = forms.ImageField(required=False, label='Photo de profil')
-    date_of_birth = forms.DateField(required=False, label='Date de naissance', widget=forms.SelectDateWidget)
+    date_of_birth = forms.DateField(
+        label='Date de naissance',
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        required=False  # rend le champ optionnel
+    )
 
     class Meta(UserCreationForm.Meta):
         model = User

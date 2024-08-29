@@ -16,26 +16,21 @@
 {% block content %}
     {% include "components/nav.html" %}
 
-    <div class="container mt-5 text-center">
-        <h1>Bienvenue sur BookCircle</h1>
-        <p class="lead">Nous sommes ravis de vous accueillir dans notre communauté de passionnés de lecture.</p>
-        <p>Explorez, découvrez de nouveaux livres et partagez vos expériences de lecture avec d'autres membres.</p>
+    <div class="profile">
+        {% if user_profile.profile_picture %}
+            <img src="{{ user_profile.profile_picture.url }}" alt="Photo de profil" class="profile-picture">
+        {% else %}
+            <img src="{% static 'default-profile.png' %}" alt="Photo de profil" class="profile-picture">
+        {% endif %}
+        <h3>{{ user_profile.user.username }}</h3>
+        <p><strong>Prénom :</strong> {{ user_profile.user.first_name }}</p>
+        <p><strong>Nom :</strong> {{ user_profile.user.last_name }}</p>
+        <p><strong>Email :</strong> {{ user_profile.user.email }}</p>
+        <p><strong>Bio :</strong> {{ user_profile.bio }}</p>
+        <p><strong>Date de naissance :</strong> {{ user_profile.date_of_birth }}</p>
     </div>
 
-    <ul class="navbar-nav ml-auto">
-            {% if user.is_authenticated %}
-            <li class="nav-item active">
-                <a class="nav-link" href="#"> Pseudo : {{user}}</a>
-            </li>
-            {% else %}
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'login' %}">Connexion</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'register' %}">Inscription</a>
-            </li>
-            {% endif %}
-                </ul>
+    
     {% include "components/footer.html" %}
 {% endblock %}
 </html>

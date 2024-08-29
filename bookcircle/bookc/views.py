@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UserRegistrationForm
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
@@ -47,11 +47,15 @@ def register(request):
 def home(request):
    return render(request, "home.html")
 
+@login_required
 def account(request):
-   return render(request, "account.html")
+   user_profile = get_object_or_404(UserProfile, user=request.user)
+   return render(request, 'account.html', {'user_profile': user_profile})
 
+@login_required
 def library(request):
    return render(request, "library.html")
 
+@login_required
 def challenge(request):
    return render(request, "challenge.html")
