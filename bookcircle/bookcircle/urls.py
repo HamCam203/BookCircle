@@ -28,6 +28,7 @@ urlpatterns = [
     path('account/', views.account, name="account"),
     path('library/', views.library, name="library"),
     path('challenge/', views.challenge, name="challenge"),
+    path('citation/', views.citation_quiz, name='citation_quiz'),
 
 	path('accounts/', include('django.contrib.auth.urls')),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name = 'login'),

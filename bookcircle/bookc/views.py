@@ -4,7 +4,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
+from .models import UserProfile, Quote
+import random
 
 def register(request):
     if request.method == 'POST':
@@ -59,3 +60,40 @@ def library(request):
 @login_required
 def challenge(request):
    return render(request, "challenge.html")
+
+@login_required
+def citation_quiz(request):
+    if request.method == 'POST':
+        user_answer = request.POST.get('author')
+        quote_id = request.POST.get('quote_id')
+        quote = Quote.objects.get(id=quote_id)
+        
+        correct = user_answer == quote.author
+        return render(request, 'resultCitation.html', {
+            'quote': quote,
+            'correct': correct,
+            'user_answer': user_answer
+        })
+
+    # Récupérer une citation aléatoire
+    quote = random.choice(Quote.objects.all())
+
+    # Récupérer tous les autres auteurs, exclure l'auteur de la citation actuelle
+    other_authors = list(Quote.objects.exclude(author=quote.author).values_list('author', flat=True).distinct())
+
+    # Si le nombre d'autres auteurs est inférieur à 3, on ajuste
+    num_fake_authors = min(3, len(other_authors))
+    
+    # Sélectionner des faux auteurs et les combiner avec le vrai auteur
+    fake_authors = random.sample(other_authors, num_fake_authors)
+    options = fake_authors + [quote.author]
+    
+    # Mélanger les options pour que le bon auteur ne soit pas toujours à la même position
+    random.shuffle(options)
+    
+    return render(request, 'citation.html', {
+        'quote': quote,
+        'options': options,
+        'quote_id': quote.id
+    })
+

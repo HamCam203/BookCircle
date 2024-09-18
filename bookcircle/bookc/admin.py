@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile
+from .models import UserProfile, Quote
 
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio', 'date_of_birth')  # Les colonnes à afficher
@@ -7,3 +7,4 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_filter = ('date_of_birth',)  # Ajout d'un filtre
 
 admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(Quote)
