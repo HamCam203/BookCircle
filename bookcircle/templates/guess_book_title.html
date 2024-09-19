@@ -11,15 +11,16 @@
 </head>
 {% block content %}
 {% include "components/nav.html" %}
-<div class="container mt-5 text-center">
-    <h1>Bienvenue dans la Section Challenge</h1>
-    <p>Ici mesurer vos connaissances littéraires et culturelles face aux autres membres de la communauté !</p>
+<div class="container text-center mt-5">
+    <h1>De quel livre je parle ?</h1>
+    <p>{{ book.summary }}</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" class="form-control" placeholder="Entrez le titre du livre" required>
+        <button type="submit" class="btn btn-primary mt-3">Soumettre</button>
+    </form>
 </div>
-
-<a class="nav-link" href="{% url 'citation_quiz' %}">Chasse aux citations</a>
-<a class="nav-link" href="{% url 'guess_book_title' %}">De quel livre je parle ?</a>
-
-
 {% include "components/footer.html" %}
 {% endblock %}
 </html>

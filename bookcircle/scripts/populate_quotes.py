@@ -40,20 +40,17 @@ citations = [
 ]
 
 
-def populate_quotes():
-    try:
-        # Boucle sur les auteurs et citations pour les insérer dans la base de données
-        for i in range(20):  # Créer 20 citations aléatoires
-            author = random.choice(authors)
-            citation = random.choice(citations)
-            
-            # Créer et sauvegarder une nouvelle citation dans la base de données
-            quote = Quote(author=author, text=citation)
-            quote.save()
-            print(f"Ajouté : {author} - {citation}")
+try:
+    # Boucle sur les auteurs et citations pour les insérer dans la base de données
+    for i in range(len(citations)):  # Créer 20 citations aléatoires
+        
+        # Créer et sauvegarder une nouvelle citation dans la base de données
+        quote = Quote(author=authors[i], text=citations[i])
+        quote.save()
+        print(f"Ajouté : {authors[i]} - {citations[i]}")
 
-    except IntegrityError:
-        print(f"Erreur d'intégrité lors de l'insertion de la citation.")
+except IntegrityError:
+    print(f"Erreur d'intégrité lors de l'insertion de la citation.")
 
 if __name__ == "__main__":
     populate_quotes()

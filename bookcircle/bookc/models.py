@@ -17,3 +17,10 @@ class Quote(models.Model):
 
     def __str__(self):
         return f'{self.text[:50]}... - {self.author}'
+
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    summary = models.TextField()
+
+    def __str__(self):
+        return self.title

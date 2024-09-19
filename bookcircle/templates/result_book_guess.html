@@ -12,22 +12,18 @@
 {% block content %}
 {% include "components/nav.html" %}
 <div class="container text-center mt-5">
-    <h1> Devine l'auteur de la citation ci-dessous</h1>
     <blockquote class="blockquote">
-        <p>"{{ quote.text }}"</p>
+        <p>"{{ book.summary }}"</p>
     </blockquote>
-    <form method="post">
-        {% csrf_token %}
-        {% for option in options %}
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="author" id="author{{ forloop.counter }}" value="{{ option }}">
-                <label class="form-check-label" for="author{{ forloop.counter }}">
-                    {{ option }}
-                </label>
-            </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary mt-3">Soumettre</button>
-    </form>
+    {% if correct %}
+        <h2 class="text-success">Bonne réponse !</h2>
+    {% else %}
+        <h2 class="text-danger">Mauvaise réponse !</h2>
+        <p>La bonne réponse était : <strong>{{ book.title }}</strong>.</p>
+    {% endif %}
+    <p>Vous avez entré : <strong>{{ user_answer }}</strong>.</p>
+
+    <a href="{% url 'guess_book_title' %}" class="btn btn-primary mt-3">Essayer un autre résumé</a>
 </div>
 {% include "components/footer.html" %}
 {% endblock %}
