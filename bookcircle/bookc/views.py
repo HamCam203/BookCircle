@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile, Quote, Book
+from .models import UserProfile, Quote, Book, FactAuthor, LifeFact
 import random
 
 def register(request):
@@ -148,4 +148,46 @@ def guess_book_title(request):
     # Afficher la page du jeu avec le résumé
     return render(request, 'guess_book_title.html', {
         'book': book
+    })
+
+
+@login_required
+def fact_quiz(request):
+    # Si c'est une requête POST, récupérer l'ID de l'affirmation depuis la session
+    if request.method == 'POST':
+        fact_id = request.session.get('fact_id')
+        fact = LifeFact.objects.get(id=fact_id)
+
+        selected_author_id = request.POST.get('author')
+        selected_author = FactAuthor.objects.get(id=selected_author_id)
+
+        # Vérifier si l'auteur sélectionné est le faux auteur
+        correct = selected_author == fact.false_author
+
+        # Effacer l'ID de la session après utilisation
+        del request.session['fact_id']
+
+        return render(request, 'result_fact_quiz.html', {
+            'fact': fact,
+            'correct': correct,
+            'selected_author': selected_author,
+            'false_author': fact.false_author
+        })
+
+    # Pour GET, récupérer une affirmation aléatoire
+    fact = random.choice(LifeFact.objects.all())
+
+    # Récupérer les vrais auteurs et l'ajouter à la liste avec le faux auteur
+    true_authors = list(fact.true_authors.all())
+    options = true_authors + [fact.false_author]
+
+    # Mélanger les options pour que le faux auteur ne soit pas toujours à la même position
+    random.shuffle(options)
+
+    # Sauvegarder l'ID de l'affirmation dans la session
+    request.session['fact_id'] = fact.id
+
+    return render(request, 'fact_quiz.html', {
+        'fact': fact,
+        'options': options
     })

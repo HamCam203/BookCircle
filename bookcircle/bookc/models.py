@@ -24,3 +24,17 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+class LifeFact(models.Model):
+    fact = models.TextField()  # L'affirmation de vie
+    true_authors = models.ManyToManyField('FactAuthor', related_name='true_facts')  # Les auteurs pour qui l'affirmation est vraie (3 auteurs)
+    false_author = models.ForeignKey('FactAuthor', on_delete=models.CASCADE, related_name='false_facts')  # L'auteur pour qui c'est faux
+
+    def __str__(self):
+        return self.fact
+
+class FactAuthor(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name

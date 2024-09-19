@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     {% load static %}
     {% block style %}
@@ -16,7 +16,7 @@
         <p>"{{ book.summary }}"</p>
     </blockquote>
     {% if correct %}
-        <h2 class="text-success">Bonne réponse !</h2>
+        <h2 style="color: white;">Bonne réponse !</h2>
     {% else %}
         <h2 class="text-danger">Mauvaise réponse !</h2>
         <p>La bonne réponse était : <strong>{{ book.title }}</strong>.</p>
