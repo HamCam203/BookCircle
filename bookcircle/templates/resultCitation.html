@@ -22,6 +22,7 @@
         <p>La bonne réponse était : <strong>{{ quote.author }}</strong>.</p>
     {% endif %}
     <p>Vous avez choisi : <strong>{{ user_answer }}</strong>.</p>
+    <p>Votre score actuel est : {{ score }}.</p>
 
     <a href="{% url 'citation_quiz' %}" class="btn btn-primary mt-3">Essayer une autre citation</a>
 </div>

@@ -22,6 +22,7 @@
         <p>La bonne réponse était : <strong>{{ book.title }}</strong>.</p>
     {% endif %}
     <p>Vous avez entré : <strong>{{ user_answer }}</strong>.</p>
+    <p>Votre score actuel est : {{ score }}.</p>
 
     <a href="{% url 'guess_book_title' %}" class="btn btn-primary mt-3">Essayer un autre résumé</a>
 </div>

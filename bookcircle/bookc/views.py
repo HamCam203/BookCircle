@@ -77,6 +77,17 @@ def citation_quiz(request):
         user_answer = request.POST.get('author')
         correct = user_answer == quote.author
 
+
+        # Mettre à jour le score de l'utilisateur
+        user_profile = UserProfile.objects.get(user=request.user)
+
+        if correct:
+            user_profile.score += 1  # Ajoute un point pour une bonne réponse
+        else:
+            user_profile.score -= 0.5  # Soustrait un demi-point pour une mauvaise réponse
+
+        user_profile.save()  # Sauvegarde le score mis à jour
+
         # Supprimer l'ID de la citation de la session après la réponse
         del request.session['quote_id']
 
@@ -84,7 +95,8 @@ def citation_quiz(request):
         return render(request, 'resultCitation.html', {
             'quote': quote,
             'correct': correct,
-            'user_answer': user_answer
+            'user_answer': user_answer,
+            'score': user_profile.score  # Afficher le score mis à jour
         })
 
     # Récupérer une citation aléatoire pour deviner l'auteur
@@ -129,6 +141,16 @@ def guess_book_title(request):
         user_answer = request.POST.get('title').strip().lower()
         correct = user_answer == book.title.strip().lower()
 
+        # Mettre à jour le score de l'utilisateur
+        user_profile = UserProfile.objects.get(user=request.user)
+
+        if correct:
+            user_profile.score += 1  # Ajoute un point pour une bonne réponse
+        else:
+            user_profile.score -= 0.5  # Soustrait un demi-point pour une mauvaise réponse
+
+        user_profile.save()  # Sauvegarde le score mis à jour
+
         # Supprimer l'ID du livre de la session après avoir traité la réponse
         del request.session['book_id']
 
@@ -136,7 +158,8 @@ def guess_book_title(request):
         return render(request, 'result_book_guess.html', {
             'book': book,
             'correct': correct,
-            'user_answer': user_answer
+            'user_answer': user_answer,
+            'score': user_profile.score  # Afficher le score mis à jour
         })
 
     # Récupérer un livre aléatoire pour deviner le titre
@@ -164,6 +187,17 @@ def fact_quiz(request):
         # Vérifier si l'auteur sélectionné est le faux auteur
         correct = selected_author == fact.false_author
 
+        # Mettre à jour le score de l'utilisateur
+        user_profile = UserProfile.objects.get(user=request.user)
+
+        if correct:
+            user_profile.score += 1  # Ajoute un point pour une bonne réponse
+        else:
+            user_profile.score -= 0.5  # Soustrait un demi-point pour une mauvaise réponse
+
+        user_profile.save()  # Sauvegarde le score mis à jour
+
+
         # Effacer l'ID de la session après utilisation
         del request.session['fact_id']
 
@@ -171,7 +205,8 @@ def fact_quiz(request):
             'fact': fact,
             'correct': correct,
             'selected_author': selected_author,
-            'false_author': fact.false_author
+            'false_author': fact.false_author,
+            'score': user_profile.score  # Afficher le score mis à jour
         })
 
     # Pour GET, récupérer une affirmation aléatoire
