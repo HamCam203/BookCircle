@@ -1,15 +1,9 @@
 {% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    {% load static %}
-    {% block style %}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% endblock style %}
-</head>
+
 {% block content %}
-{% include "components/nav.html" %}
+
 <div class="container text-center mt-5">
     <h2>{{ fact.fact }}</h2>
     {% if correct %}
@@ -20,6 +14,6 @@
     <p>Votre score actuel est : {{ score }}.</p>
     <a href="{% url 'fact_quiz' %}" class="btn btn-primary mt-4">Rejouer</a>
 </div>
-{% include "components/footer.html" %}
+
 {% endblock %}
 </html>

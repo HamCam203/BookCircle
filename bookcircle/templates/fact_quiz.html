@@ -1,15 +1,9 @@
 {% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    {% load static %}
-    {% block style %}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% endblock style %}
-</head>
+
 {% block content %}
-{% include "components/nav.html" %}
+
 <div class="container text-center mt-5">
     <h1> De quel auteur je ne parle pas ?</h1>
     <p>{{ fact.fact }}</p>
@@ -23,6 +17,6 @@
         </div>
     </form>
 </div>
-{% include "components/footer.html" %}
+
 {% endblock %}
 </html>

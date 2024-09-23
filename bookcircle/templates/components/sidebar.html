@@ -1,0 +1,15 @@
+<!-- templates/components/sidebar.html -->
+
+<div class="sidebar">
+    <h3>Leaderboard</h3>
+    <ul class="list-group">
+        {% for profile in leaderboard_users %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ profile.user.username }}
+                <span class="badge badge-success badge-pill">{{ profile.score }}</span>
+            </li>
+        {% empty %}
+            <li class="list-group-item">Aucun utilisateur trouvé.</li>
+        {% endfor %}
+    </ul>
+</div>

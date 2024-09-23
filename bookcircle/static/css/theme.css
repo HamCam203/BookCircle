@@ -42,3 +42,17 @@ body {
     padding: 20px 50px; /* Augmente la taille du bouton */
     font-size: 24px;    /* Augmente la taille du texte */
 }
+
+
+/* Style pour le bandeau latéral */
+.sidebar {
+    width: 250px;
+    height: 350px;
+    background: radial-gradient(ellipse farthest-corner at center top, #1e4e25 0%, #032d0e 100%);
+    color: black;
+    padding: 20px;
+    position: fixed; /* Fixe la sidebar à droite */
+    top: 150px; /* Commence en dessous du header de 70px (taille du header) */
+    right: 0; /* Place la sidebar à droite */
+    overflow-y: auto; /* Barre de défilement si nécessaire */
+}
