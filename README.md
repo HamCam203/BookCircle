@@ -31,15 +31,15 @@ Résumé mystérieux : Un résumé de livre est affiché et l'utilisateur doit d
 - Django 4.x
 - Base de données SQLite (ou un autre système de base de données compatible avec Django)
 **Installation :**
-* *1. Cloner le dépôt :* *
+*1. Cloner le dépôt :*
 git clone https://github.com/tonpseudo/BookCircle.git
-* *2. Installer les dépendances :* *
+*2. Installer les dépendances :*
 pip install -r requirements.txt
-* *3. Appliquer les migrations :* *
+*3. Appliquer les migrations :*
 python manage.py migrate
-* *4. Créer un super utilisateur :* *
+*4. Créer un super utilisateur :*
 python manage.py createsuperuser
-* *5. Lancer le serveur :* *
+*5. Lancer le serveur :*
 python manage.py runserver
 ## 💡 Contribution
 Les contributions sont les bienvenues ! Pour contribuer :
