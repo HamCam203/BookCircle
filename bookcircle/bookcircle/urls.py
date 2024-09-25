@@ -26,12 +26,25 @@ urlpatterns = [
     path("", views.home, name="home"),
     path('home/', views.home, name="home"),
     path('account/', views.account, name="account"),
-    path('library/', views.library, name="library"),
     path('challenge/', views.challenge, name="challenge"),
     path('citation/', views.citation_quiz, name='citation_quiz'),
     path('guess_book_title/', views.guess_book_title, name='guess_book_title'),
     path('fact-quiz/', views.fact_quiz, name='fact_quiz'),
 
+
+    # Recherche de livres via l'API Google Books
+    path('search/', views.search_books_view, name='search_books'),
+    
+    # Ajout d'un livre à la bibliothèque de l'utilisateur
+    path('add-to-library/', views.add_to_library, name='add_to_library'),
+    
+    # Bibliothèque de l'utilisateur
+    path('library/', views.user_library, name='user_library'),
+    
+    # Mise à jour d'un UserBook (note et commentaire)
+    path('library/update/<int:userbook_id>/', views.update_userbook, name='update_userbook'),
+
+    #Gestion de connexion, déconnexion et inscription
 	path('accounts/', include('django.contrib.auth.urls')),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name = 'login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name = 'logout'),

@@ -1,1 +1,43 @@
-{\rtf1}
+{% extends 'base.html' %}
+
+{% block title %}
+    Ma Bibliothèque
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <h2>Ma Bibliothèque</h2>
+
+    <p>Vous possédez {{ total_books }} livre(s) dans votre bibliothèque.</p>
+
+    <!-- Affichage d'un livre -->
+    <strong>{{ userbook.book.title }}</strong>
+    <p>Auteur: {{ userbook.book.author }}</p>
+    <p>Note: {{ userbook.rating }}</p>
+    <p>Commentaire: {{ userbook.comment }}</p>
+
+    <!-- Formulaire pour mettre à jour la note et le commentaire -->
+    <form method="POST" action="{% url 'update_userbook' userbook.id %}">
+        {% csrf_token %}
+        <label for="rating">Note :</label>
+        <input type="number" name="rating" value="{{ userbook.rating }}">
+
+        <label for="comment">Commentaire :</label>
+        <textarea name="comment">{{ userbook.comment }}</textarea>
+
+        <button type="submit">Mettre à jour</button>
+    </form>
+
+    <!-- Pagination (navigation entre les livres) -->
+    <div class="pagination">
+        {% if has_previous %}
+            <a href="?page={{ page|add:"-1" }}" class="btn btn-secondary">Précédent</a>
+        {% endif %}
+        
+        {% if has_next %}
+            <a href="?page={{ page|add:"1" }}" class="btn btn-primary">Suivant</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

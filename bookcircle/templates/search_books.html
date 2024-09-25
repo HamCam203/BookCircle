@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Rechercher un livre
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Rechercher un livre</h2>
+    <form method="GET" action="{% url 'search_books' %}" class="form-inline mb-4">
+        <input type="text" name="q" placeholder="Rechercher un livre" value="{{ query }}" class="form-control mr-sm-2">
+        <button type="submit" class="btn btn-outline-success">Rechercher</button>
+    </form>
+
+    {% if results %}
+        <h3>Résultats de recherche pour "{{ query }}"</h3>
+        <ul class="list-group">
+            {% for book in results %}
+                <li class="list-group-item">
+                    <strong>{{ book.volumeInfo.title }}</strong> - {{ book.volumeInfo.authors|join:", " }}
+                    <form method="POST" action="{% url 'add_to_library' %}" class="form-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="book_id" value="{{ book.id }}">
+                        <input type="hidden" name="title" value="{{ book.volumeInfo.title }}">
+                        <input type="hidden" name="authors" value="{{ book.volumeInfo.authors|join:", " }}">
+                        <button type="submit" class="btn btn-primary ml-3">Ajouter à ma bibliothèque</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Pagination (navigation entre les livres) -->
+        <div class="pagination">
+            {% if has_previous %}
+                <a href="?q={{ query }}&page={{ page|add:"-1" }}" class="btn btn-secondary">Précédent</a>
+            {% endif %}
+            
+            {% if has_next %}
+                <a href="?q={{ query }}&page={{ page|add:"1" }}" class="btn btn-primary">Suivant</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Aucun livre trouvé pour votre recherche.</p>
+    {% endif %}
+</div>
+{% endblock %}

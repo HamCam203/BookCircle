@@ -4,8 +4,10 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile, Quote, Book, FactAuthor, LifeFact
+from .models import UserProfile, Quote, Book, FactAuthor, LifeFact, UserBook
+from django.core.paginator import Paginator
 import random
+import requests
 
 def register(request):
     if request.method == 'POST':
@@ -54,8 +56,22 @@ def account(request):
    return render(request, 'account.html', {'user_profile': user_profile})
 
 @login_required
-def library(request):
-   return render(request, "library.html")
+def user_library(request):
+    user_books = UserBook.objects.filter(user=request.user)
+    total_books = user_books.count()  # Calculer le nombre total de livres
+
+    paginator = Paginator(user_books, 1)  # Afficher un livre par page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'userbook': page_obj.object_list[0] if page_obj.object_list else None,  # Obtenir le premier livre
+        'has_previous': page_obj.has_previous(),
+        'has_next': page_obj.has_next(),
+        'page': page_obj.number,
+        'total_books': total_books,  # Nombre total de livres
+    }
+    return render(request, 'library.html', context)
 
 @login_required
 def challenge(request):
@@ -226,3 +242,66 @@ def fact_quiz(request):
         'fact': fact,
         'options': options
     })
+
+
+#Gestion de la Bibliothèque
+def search_books(query):
+    api_url = f"https://www.googleapis.com/books/v1/volumes?q={query}"
+    response = requests.get(api_url)
+    
+    if response.status_code == 200:
+        return response.json().get('items', [])
+    else:
+        return []
+
+@login_required
+def search_books_view(request):
+    query = request.GET.get('q', '')
+    results = []
+
+    if query:
+        results = search_books(query)  # Recherche des livres à partir de l'API
+
+    # Pagination
+    paginator = Paginator(results, 4)  # Afficher 5 livres par page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'search_books.html', {
+        'results': page_obj,
+        'query': query,
+        'has_previous': page_obj.has_previous(),
+        'has_next': page_obj.has_next(),
+        'page': page_obj.number,
+    })
+
+@login_required
+def add_to_library(request):
+    if request.method == 'POST':
+        book_id = request.POST.get('book_id')
+        title = request.POST.get('title')
+        authors = request.POST.get('authors')
+
+        # Créer ou récupérer le livre
+        book, created = Book.objects.get_or_create(title=title)
+
+        # Ajouter le livre à la bibliothèque de l'utilisateur
+        UserBook.objects.create(
+            user=request.user,
+            book=book
+        )
+
+        return redirect('user_library')
+
+@login_required
+def update_userbook(request, userbook_id):
+    userbook = get_object_or_404(UserBook, id=userbook_id)
+
+    if request.method == 'POST':
+        userbook.rating = request.POST.get('rating')
+        userbook.comment = request.POST.get('comment')
+        userbook.save()
+
+        return redirect('user_library')
+
+    return render(request, 'update_userbook.html', {'userbook': userbook})

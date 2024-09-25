@@ -13,10 +13,13 @@
         <a href="{% url 'account' %}" class="nav-link">Mon Compte</a>
       </li>
       <li class="nav-item mx-3">
-        <a class="nav-link" href="{% url 'library' %}">Ma Bibliothèque</a>
+        <a class="nav-link" href="{% url 'user_library' %}">Ma Bibliothèque</a>
       </li>
       <li class="nav-item mx-3">
         <a class="nav-link" href="{% url 'challenge' %}">Challenge</a>
+      </li>
+      <li class="nav-item mx-3">
+        <a class="nav-link" href="{% url 'search_books' %}">Recherche</a>
       </li>
     </ul>
   </div>

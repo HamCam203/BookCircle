@@ -21,10 +21,13 @@ class Quote(models.Model):
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
+    authors = models.TextField()  # Liste des auteurs en texte
     summary = models.TextField()
+    thumbnail = models.URLField(blank=True, null=True)  # URL de l'image de couverture
 
     def __str__(self):
         return self.title
+
 
 class LifeFact(models.Model):
     fact = models.TextField()  # Anecdote de vie
@@ -39,3 +42,13 @@ class FactAuthor(models.Model):
 
     def __str__(self):
         return self.name
+
+class UserBook(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    rating = models.IntegerField(null=True, blank=True)  # Note donnée par l'utilisateur
+    comment = models.TextField(blank=True, null=True)  # Commentaire de l'utilisateur
+    date_read = models.DateField(null=True, blank=True)  # Date où le livre a été lu
+
+    def __str__(self):
+        return f"{self.user.username} - {self.book.title}"

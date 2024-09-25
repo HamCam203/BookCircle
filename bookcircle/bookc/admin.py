@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, Quote, Book, FactAuthor, LifeFact
+from .models import UserProfile, Quote, Book, FactAuthor, LifeFact, UserBook
 
 class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio', 'date_of_birth', 'score')  # Afficher le score
@@ -22,7 +22,7 @@ class QuoteAdmin(admin.ModelAdmin):
     get_short_text.short_description = 'Citation'
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'summary')  # Afficher le titre et le résumé
+    list_display = ('title', 'summary', 'authors', 'thumbnail')  # Afficher le titre, le résumé, les auteurs et l'URL de la couverture
     search_fields = ('title',)  # Permettre la recherche par titre
     list_filter = ('title',)  # Filtre par titre
 
@@ -39,10 +39,14 @@ class FactAuthorAdmin(admin.ModelAdmin):
     list_display = ('name',)  # Afficher le nom de l'auteur
     search_fields = ('name',)  # Permettre la recherche par nom
 
-
+class UserBookAdmin(admin.ModelAdmin):
+    list_display = ('user', 'book', 'rating', 'comment', 'date_read')  # Affiche toutes les informations de UserBook
+    search_fields = ('user__username', 'book__title')  # Recherche par nom d'utilisateur et titre du livre
+    list_filter = ('rating', 'date_read')  # Filtrer par note et date de lecture
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Quote, QuoteAdmin)
 admin.site.register(Book, BookAdmin)
 admin.site.register(LifeFact, LifeFactAdmin)
 admin.site.register(FactAuthor, FactAuthorAdmin)
+admin.site.register(UserBook, UserBookAdmin)  # Enregistrer UserBook avec sa classe d'administration
