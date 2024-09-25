@@ -30,6 +30,7 @@ Résumé mystérieux : Un résumé de livre est affiché et l'utilisateur doit d
 - Python 3.x
 - Django 4.x
 - Base de données SQLite (ou un autre système de base de données compatible avec Django)
+
 **Installation :**
 1. Cloner le dépôt :
 git clone https://github.com/HamCam203/BookCircle.git
@@ -41,9 +42,3 @@ python manage.py migrate
 python manage.py createsuperuser
 5. Lancer le serveur :
 python manage.py runserver
-## 💡 Contribution
-Les contributions sont les bienvenues ! Pour contribuer :
-Fork le projet.
-Créer une branche pour ta fonctionnalité :
-git checkout -b feature/nom-de-ta-branche
-Submit une pull request après avoir terminé.
