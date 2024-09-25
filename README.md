@@ -25,3 +25,25 @@ Questions de culture générale : Affichage d'une anecdote de vie concernant plu
 ### 📚 Devine le titre
 Résumé mystérieux : Un résumé de livre est affiché et l'utilisateur doit deviner de quel livre il s'agit.
 
+## 🛠 Installation et Déploiement
+**Prérequis :**
+- Python 3.x
+- Django 4.x
+- Base de données SQLite (ou un autre système de base de données compatible avec Django)
+**Installation :**
+* *1. Cloner le dépôt :* *
+git clone https://github.com/tonpseudo/BookCircle.git
+* *2. Installer les dépendances :* *
+pip install -r requirements.txt
+* *3. Appliquer les migrations :* *
+python manage.py migrate
+* *4. Créer un super utilisateur :* *
+python manage.py createsuperuser
+* *5. Lancer le serveur :* *
+python manage.py runserver
+## 💡 Contribution
+Les contributions sont les bienvenues ! Pour contribuer :
+Fork le projet.
+Créer une branche pour ta fonctionnalité :
+git checkout -b feature/nom-de-ta-branche
+Submit une pull request après avoir terminé.
