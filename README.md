@@ -32,7 +32,7 @@ Résumé mystérieux : Un résumé de livre est affiché et l'utilisateur doit d
 - Base de données SQLite (ou un autre système de base de données compatible avec Django)
 **Installation :**
 1. Cloner le dépôt :
-git clone https://github.com/tonpseudo/BookCircle.git
+git clone https://github.com/HamCam203/BookCircle.git
 2. Installer les dépendances :
 pip install -r requirements.txt
 3. Appliquer les migrations :
